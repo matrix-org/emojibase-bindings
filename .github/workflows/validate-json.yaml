@@ -1,0 +1,32 @@
+name: Validate emojibase.json
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    concurrency:
+      # When running on main, use the sha to allow all runs of this workflow to run concurrently.
+      # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
+      group: ${{ github.ref == 'refs/heads/main' && format('validate-json-main-{0}', github.sha) || format('validate-json-pr-{0}', github.ref) }}
+      cancel-in-progress: true
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+          cache: "yarn"
+
+    - name: Setup
+      run: "yarn install"
+    
+    - name: Gerenate json
+      run: "yarn start"
+
+    - name: Validate it matches source
+      run: "git diff --exit-code"
