@@ -7,13 +7,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     concurrency:
       # When running on main, use the sha to allow all runs of this workflow to run concurrently.
       # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
-      group: ${{ github.ref == 'refs/heads/main' && format('validate-json-main-{0}', github.sha) || format('validate-json-pr-{0}', github.ref) }}
-      cancel-in-progress: true
+      group: ${{ github.workflow }}
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
 
     steps:
     - uses: actions/checkout@v3
