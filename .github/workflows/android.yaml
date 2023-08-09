@@ -7,6 +7,7 @@ on:
 
 # Enrich gradle.properties for CI/CD
 env:
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx3072m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError" -Dkotlin.daemon.jvm.options="-Xmx2560m" -Dkotlin.incremental=false
   CI_GRADLE_ARG_PROPERTIES: --stacktrace -PpreDexEnable=false --max-workers 4 --no-daemon
   ARCH: x86_64
   DEVICE: Nexus 5X
@@ -29,6 +30,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      - name: Setup Gradle & Build test cases
+        uses: gradle/gradle-build-action@v2
+        with:
+          build-root-directory: platforms/android
+          arguments: |
+            :library:assembleDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
+          cache-read-only: false
 
       - name: AVD cache
         uses: actions/cache@v3
