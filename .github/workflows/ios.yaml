@@ -21,5 +21,4 @@ jobs:
       run: sudo xcode-select -switch /Applications/Xcode_14.2.app
 
     - name: Tests
-      working-directory: platforms/ios/
-      run: exec ./ios-tests.sh
+      run: exec ./platforms/ios/ios-tests.sh
