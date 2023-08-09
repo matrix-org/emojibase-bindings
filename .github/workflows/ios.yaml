@@ -1,0 +1,25 @@
+name: Validate Swift
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-12
+
+    concurrency:
+      # When running on main, use the sha to allow all runs of this workflow to run concurrently.
+      # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
+      group: ${{ github.workflow }}
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set XCode 14.2
+      run: sudo xcode-select -switch /Applications/Xcode_14.2.app
+
+    - name: Tests
+      working-directory: platforms/ios/
+      run: exec ./ios-tests.sh
