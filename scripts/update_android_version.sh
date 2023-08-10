@@ -15,11 +15,9 @@ else
   SED_CMD="sed -i"
 fi
 
-SCRIPT_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
 VERSION=$1
 
 GRADLE_PROPERTIES_REGEX="s/^VERSION_NAME=.*$/VERSION_NAME=$VERSION/g"
 
 echo "Updating Android"
-$SED_CMD "$GRADLE_PROPERTIES_REGEX" $SCRIPT_PATH/platforms/android/gradle.properties
+$SED_CMD "$GRADLE_PROPERTIES_REGEX" ./platforms/android/gradle.properties

@@ -52,7 +52,7 @@ jobs:
 
       - name: 👊 Sync the version with android
         run: |
-          ./sync_android_version.sh ${{ env.NEW_VERSION }}
+          ./scripts/update_android_version.sh ${{ env.NEW_VERSION }}
 
       - name: 👊 Commit the version
         run: |
