@@ -8,3 +8,4 @@ DerivedData/
 node_modules
 platforms/android/.idea/
 platforms/android/.gradle
+platforms/android/local.properties
