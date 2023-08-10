@@ -1,4 +1,4 @@
-name: Validate emojibase.json
+name: Validate Swift
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
 
     concurrency:
       # When running on main, use the sha to allow all runs of this workflow to run concurrently.
@@ -17,16 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Set XCode 14.2
+      run: sudo xcode-select -switch /Applications/Xcode_14.2.app
 
-    - uses: actions/setup-node@v3
-      with:
-          cache: "yarn"
-
-    - name: Setup
-      run: "./scripts/setup.sh"
-    
-    - name: Gerenate json
-      run: "./scripts/generateJson.sh"
-
-    - name: Validate it matches source
-      run: "git diff --exit-code"
+    - name: Tests
+      run: exec ./platforms/ios/ios-tests.sh

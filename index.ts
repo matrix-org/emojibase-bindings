@@ -18,7 +18,7 @@ import { DATA_BY_CATEGORY } from "./emoji";
 import * as fs from 'fs'
 
 const json = JSON.stringify(DATA_BY_CATEGORY)
-fs.writeFile("platforms/ios/Emojibase/Resources/emojibase.json", json, function(err) {
+fs.writeFile("build/emojibase.json", json, function(err) {
     if (err) {
         console.log(err);
     } else {

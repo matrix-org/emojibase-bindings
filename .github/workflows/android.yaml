@@ -1,0 +1,86 @@
+name: Validate Kotlin
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+# Enrich gradle.properties for CI/CD
+env:
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError" -Dkotlin.daemon.jvm.options="-Xmx2560m" -Dkotlin.incremental=false
+  CI_GRADLE_ARG_PROPERTIES: --stacktrace -PpreDexEnable=false --max-workers 4 --no-daemon
+  ARCH: x86_64
+  DEVICE: Nexus 5X
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [31]
+    concurrency:
+      # When running on main, use the sha to allow all runs of this workflow to run concurrently.
+      # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
+      group: ${{ github.workflow }}
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - uses: actions/setup-node@v3
+        with:
+            cache: "yarn"
+
+      - name: Setup json generation
+        run: "./scripts/setup.sh"
+      
+      - name: Gerenate json
+        run: "./scripts/generateJson.sh"
+
+      - name: Setup Gradle & Build test cases
+        uses: gradle/gradle-build-action@v2
+        with:
+          build-root-directory: platforms/android
+          arguments: |
+            :library:assembleDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
+          cache-read-only: false
+
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          working-directory: platforms/android
+          api-level: ${{ matrix.api-level }}
+          profile: ${{ env.DEVICE }}
+          arch: ${{ env.ARCH }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          enable-hw-keyboard: true
+          script: echo "Generated AVD snapshot for caching."
+              
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          working-directory: platforms/android
+          api-level: ${{ matrix.api-level }}
+          arch: ${{ env.ARCH }}
+          profile: ${{ env.DEVICE }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          enable-hw-keyboard: true
+          script: |
+            ./gradlew :library:connectedDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}

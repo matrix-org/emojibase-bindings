@@ -1,0 +1,79 @@
+name: Release Automation
+on:
+  workflow_dispatch:
+    inputs:
+      version-bump:
+        description: The scale of the version bump required for semver compatibility
+        required: true
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+concurrency: release
+
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError" -Dkotlin.daemon.jvm.options="-Xmx2560m" -Dkotlin.incremental=false
+  CI_GRADLE_ARG_PROPERTIES: --stacktrace -PpreDexEnable=false --max-workers 4 --no-daemon
+  ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+  ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+  ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ANDROID_SIGNING_GPG }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.ANDROID_SIGNING_KEY_ID }}
+  ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+jobs:
+  release:
+    name: Release Bindingss for Kotlin and Swift
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🧮 Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+    - uses: 🔧 actions/setup-node@v3
+      with:
+          cache: "yarn"
+
+    - name: 🗜️ Setup
+      run: "./scripts/setup.sh"
+    
+    - name: 🔨 Gerenate json
+      run: "./scripts/generateJson.sh"
+      
+    - name: 👊 Bump yarn version
+        run: |
+          yarn version --no-git-tag-version --${{ github.event.inputs.version-bump }}
+
+    - name: 👊 Set the version in env
+      run: |
+        echo "NEW_VERSION=$(npm pkg get version)" >> $GITHUB_ENV
+
+    - name: 👊 Sync the version with android
+      run: |
+          ./sync_android_version.sh ${{ env.NEW_VERSION }}
+
+    - name: 👊 Commit the version
+      run: |
+          git config --global user.name 'ElementRobot'
+          git config --global user.email 'releases@riot.im'
+          git commit -am "${{ github.event.inputs.version-bump }} version bump"
+          git push
+
+    - name: 🛠️ Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: ⬆️ Publish to Sonatype
+      uses: gradle/gradle-build-action@v2
+      with:
+        build-root-directory: platforms/android
+        arguments: publishAllPublicationsToMavenCentral
+    - name: 🚀 Close staging repo and release version
+      uses: gradle/gradle-build-action@v2
+      with:
+        build-root-directory: platforms/android
+        arguments: closeAndReleaseRepository
