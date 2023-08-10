@@ -3,5 +3,10 @@
 set -e
 
 yarn start
-cp build/emojibase.json platforms/ios/Emojibase/Resources/emojibase.json
-cp build/emojibase.json platforms/android/library/src/main/assets/emojibase.json
+
+EMOJIJSON_FILE="build/emojibase.json"
+SWIFT_PATH="platforms/ios/Emojibase/Resources/emojibase.json"
+KOTLIN_PATH="platforms/android/library/src/main/assets/emojibase.json"
+
+cp "$EMOJIJSON_FILE" "$SWIFT_PATH"
+mkdir -p "$KOTLIN_PATH" && cp "$EMOJIJSON_FILE" "$KOTLIN_PATH"
