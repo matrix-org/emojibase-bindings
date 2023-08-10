@@ -23,10 +23,10 @@ jobs:
           cache: "yarn"
 
     - name: Setup
-      run: "yarn install"
+      run: "./scripts/setup.sh"
     
     - name: Gerenate json
-      run: "yarn start"
+      run: "./scripts/generateJson.sh"
 
     - name: Validate it matches source
       run: "git diff --exit-code"

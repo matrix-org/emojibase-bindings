@@ -9,3 +9,4 @@ node_modules
 platforms/android/.idea/
 platforms/android/.gradle
 platforms/android/local.properties
+platforms/android/library/src/main/assets/emojibase.json
