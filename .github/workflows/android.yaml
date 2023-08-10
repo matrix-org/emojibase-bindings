@@ -82,5 +82,6 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           enable-hw-keyboard: true
+          # Workaround for https://github.com/ReactiveCircus/android-emulator-runner/issues/319
           script: |
-            ./gradlew :library:connectedDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
+            adb uninstall io.element.android.emojibasebindings.test; ./gradlew :library:connectedDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
