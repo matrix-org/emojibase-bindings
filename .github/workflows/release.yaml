@@ -77,3 +77,14 @@ jobs:
         with:
           build-root-directory: platforms/android
           arguments: closeAndReleaseRepository
+
+   - name: 🧬 Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.NEW_VERSION }}
+          release_name: Release ${{ env.NEW_VERSION }}
+          body: ${{ env.NEW_VERSION }} Release
+          draft: false
+          prerelease: false
