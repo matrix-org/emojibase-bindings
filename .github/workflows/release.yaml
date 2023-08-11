@@ -48,7 +48,7 @@ jobs:
 
       - name: 👊 Set the version in env
         run: |
-          echo "NEW_VERSION=$(npm pkg get version)" >> $GITHUB_ENV
+          echo "NEW_VERSION=$(npm pkg get version --workspaces=false | tr -d \")" >> $GITHUB_ENV
 
       - name: 👊 Sync the version with android
         run: |
