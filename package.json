@@ -13,7 +13,7 @@
     "start": "ts-node ./index.ts"
   },
   "name": "emojibase-bindings",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Kotlin, Swift and Web bindings for emojibase json.",
   "main": "index.js",
   "repository": "https://github.com/matrix-org/emojibase-bindings.git",
