@@ -12,9 +12,9 @@
     "build": "tsc",
     "start": "ts-node ./index.ts"
   },
-  "name": "emojibase-bindings",
+  "name": "@matrixdotorg/emojibase-bindings",
   "version": "1.0.5",
-  "description": "Kotlin, Swift and Web bindings for emojibase json.",
+  "description": "Kotlin, Swift and Typescript bindings for emojibase json.",
   "main": "index.js",
   "repository": "https://github.com/matrix-org/emojibase-bindings.git",
   "author": "matrix.org",
