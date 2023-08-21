@@ -1,4 +1,4 @@
-name: Validate emojibase.json
+name: Static analysis
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    name: Validate emojibase.json
     runs-on: ubuntu-latest
 
     concurrency:
