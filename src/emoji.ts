@@ -18,16 +18,16 @@ import EMOJIBASE from "emojibase-data/en/compact.json";
 import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
 import { CompactEmoji } from "emojibase";
 
-export interface IEmoji extends Omit<CompactEmoji, "shortcodes"> {
+export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
     // We generate a shortcode based on the label if none exist in the dataset
     shortcodes: string[];
 }
 
 // The unicode is stored without the variant selector
-const UNICODE_TO_EMOJI = new Map<string, IEmoji>(); // not exported as gets for it are handled by getEmojiFromUnicode
-export const EMOTICON_TO_EMOJI = new Map<string, IEmoji>();
+const UNICODE_TO_EMOJI = new Map<string, Emoji>(); // not exported as gets for it are handled by getEmojiFromUnicode
+export const EMOTICON_TO_EMOJI = new Map<string, Emoji>();
 
-export const getEmojiFromUnicode = (unicode: string): IEmoji | undefined =>
+export const getEmojiFromUnicode = (unicode: string): Emoji | undefined =>
     UNICODE_TO_EMOJI.get(stripVariation(unicode));
 
 const isRegionalIndicator = (x: string): boolean => {
@@ -56,7 +56,7 @@ const EMOJIBASE_GROUP_ID_TO_CATEGORY = [
     "flags",
 ];
 
-export const DATA_BY_CATEGORY: Record<string, IEmoji[]> = {
+export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
     people: [],
     nature: [],
     foods: [],
@@ -68,12 +68,12 @@ export const DATA_BY_CATEGORY: Record<string, IEmoji[]> = {
 };
 
 // Store various mappings from unicode/emoticon/shortcode to the Emoji objects
-export const EMOJI: IEmoji[] = EMOJIBASE.map((emojiData) => {
+export const EMOJI: Emoji[] = EMOJIBASE.map((emojiData) => {
     // If there's ever a gap in shortcode coverage, we fudge it by
     // filling it in with the emoji's CLDR annotation
     const shortcodeData = SHORTCODES[emojiData.hexcode] ?? [emojiData.label.toLowerCase().replace(/\W+/g, "_")];
 
-    const emoji: IEmoji = {
+    const emoji: Emoji = {
         ...emojiData,
         // Homogenize shortcodes by ensuring that everything is an array
         shortcodes: typeof shortcodeData === "string" ? [shortcodeData] : shortcodeData,
