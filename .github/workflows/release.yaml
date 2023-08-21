@@ -80,10 +80,11 @@ jobs:
 
       - name: 🚀 Publish to npm
         id: npm-publish
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@5a85faf05d2ade2d5b6682bfe5359915d5159c6c # v2.2.1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
+          ignore-scripts: false
 
       - name: 🧬 Create release
         uses: actions/create-release@v1

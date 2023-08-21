@@ -1,4 +1,16 @@
 {
+  "name": "@matrixdotorg/emojibase-bindings",
+  "version": "1.0.5",
+  "description": "Kotlin, Swift and Typescript bindings for emojibase json.",
+  "main": "src/index.ts",
+  "repository": "https://github.com/matrix-org/emojibase-bindings.git",
+  "author": "matrix.org",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts",
+    "prepare": "yarn start"
+  },
   "devDependencies": {
     "@types/node": "^20.4.7",
     "ts-node": "^10.9.1",
@@ -7,16 +19,5 @@
   "dependencies": {
     "emojibase": "^15.0.0",
     "emojibase-data": "^15.0.0"
-  },
-  "scripts": {
-    "build": "tsc",
-    "start": "ts-node ./index.ts"
-  },
-  "name": "@matrixdotorg/emojibase-bindings",
-  "version": "1.0.5",
-  "description": "Kotlin, Swift and Typescript bindings for emojibase json.",
-  "main": "index.js",
-  "repository": "https://github.com/matrix-org/emojibase-bindings.git",
-  "author": "matrix.org",
-  "license": "Apache-2.0"
+  }
 }
