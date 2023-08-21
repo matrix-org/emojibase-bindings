@@ -24,7 +24,7 @@ env:
   ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
 jobs:
   release:
-    name: Release Bindings for Kotlin and Swift
+    name: Release Bindings for Kotlin, Swift & Typescript
     runs-on: ubuntu-latest
     steps:
       - name: 🧮 Checkout code
