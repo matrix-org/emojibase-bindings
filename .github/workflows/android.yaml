@@ -1,4 +1,4 @@
-name: Validate Kotlin
+name: Kotlin
 
 on:
   push:
@@ -14,6 +14,7 @@ env:
 
 jobs:
   build:
+    name: Validate Kotlin
     runs-on: macos-latest
     strategy:
       matrix:
