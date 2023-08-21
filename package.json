@@ -6,10 +6,17 @@
   "repository": "https://github.com/matrix-org/emojibase-bindings.git",
   "author": "matrix.org",
   "license": "Apache-2.0",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "src",
+    "build"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "ts-node ./src/build.ts",
-    "prepare": "yarn start"
+    "prepare": "yarn build && yarn start"
   },
   "devDependencies": {
     "@types/node": "^20.4.7",
