@@ -38,17 +38,17 @@ jobs:
 
       - name: 🗜️ Setup
         run: "./scripts/setup.sh"
-      
-      - name: 🔨 Gerenate json
+
+      - name: 🔨 Generate json
         run: "./scripts/generateJson.sh"
-        
+
       - name: 👊 Bump yarn version
         run: |
           yarn version --no-git-tag-version --${{ github.event.inputs.version-bump }}
 
       - name: 👊 Set the version in env
         run: |
-          echo "NEW_VERSION=$(npm pkg get version --workspaces=false | tr -d \")" >> $GITHUB_ENV
+          echo "NEW_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
 
       - name: 👊 Sync the version with android
         run: |
@@ -77,6 +77,14 @@ jobs:
         with:
           build-root-directory: platforms/android
           arguments: closeAndReleaseRepository
+
+      - name: 🚀 Publish to npm
+        id: npm-publish
+        uses: JS-DevTools/npm-publish@5a85faf05d2ade2d5b6682bfe5359915d5159c6c # v2.2.1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          ignore-scripts: false
 
       - name: 🧬 Create release
         uses: actions/create-release@v1
