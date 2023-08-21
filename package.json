@@ -1,5 +1,5 @@
 {
-  "name": "@matrixdotorg/emojibase-bindings",
+  "name": "@matrix-org/emojibase-bindings",
   "version": "1.0.5",
   "description": "Kotlin, Swift and Typescript bindings for emojibase json.",
   "main": "src/emoji.ts",
