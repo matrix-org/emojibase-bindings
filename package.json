@@ -2,13 +2,13 @@
   "name": "@matrixdotorg/emojibase-bindings",
   "version": "1.0.5",
   "description": "Kotlin, Swift and Typescript bindings for emojibase json.",
-  "main": "src/index.ts",
+  "main": "src/emoji.ts",
   "repository": "https://github.com/matrix-org/emojibase-bindings.git",
   "author": "matrix.org",
   "license": "Apache-2.0",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node ./src/index.ts",
+    "start": "ts-node ./src/build.ts",
     "prepare": "yarn start"
   },
   "devDependencies": {
