@@ -15,10 +15,10 @@ env:
 jobs:
   build:
     name: Validate Kotlin
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [31]
+        api-level: [29]
     concurrency:
       # When running on main, use the sha to allow all runs of this workflow to run concurrently.
       # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
@@ -49,29 +49,6 @@ jobs:
           arguments: |
             :library:assembleDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
           cache-read-only: false
-
-      - name: AVD cache
-        uses: actions/cache@v3
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-${{ matrix.api-level }}
-
-      - name: Create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          working-directory: platforms/android
-          api-level: ${{ matrix.api-level }}
-          profile: ${{ env.DEVICE }}
-          arch: ${{ env.ARCH }}
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          enable-hw-keyboard: true
-          script: echo "Generated AVD snapshot for caching."
               
       - uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -79,10 +56,10 @@ jobs:
           api-level: ${{ matrix.api-level }}
           arch: ${{ env.ARCH }}
           profile: ${{ env.DEVICE }}
-          force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           enable-hw-keyboard: true
+          disk-size: 3G
           # Workaround for https://github.com/ReactiveCircus/android-emulator-runner/issues/319
           script: |
             adb uninstall io.element.android.emojibasebindings.test; ./gradlew :library:connectedDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
