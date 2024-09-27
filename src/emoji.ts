@@ -16,11 +16,19 @@ limitations under the License.
 
 import EMOJIBASE from "emojibase-data/en/compact.json";
 import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
-import { CompactEmoji } from "emojibase";
+import VERSIONS from "emojibase-data/versions/emoji.json";
+import { CompactEmoji, generateEmoticonPermutations } from "emojibase";
 
 export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
-    // We generate a shortcode based on the label if none exist in the dataset
-    shortcodes: string[];
+  // We generate a shortcode based on the label if none exist in the dataset
+  shortcodes: string[];
+}
+
+const MAX_EMOJI_VERSION = 15.0;
+const EMOJI_TO_VERSION = new Map<string, number>();
+for (const [versionString, emojis] of Object.entries(VERSIONS)) {
+  const version = parseFloat(versionString);
+  emojis.forEach((emoji) => EMOJI_TO_VERSION.set(emoji, version));
 }
 
 // The unicode is stored without the variant selector
@@ -68,7 +76,11 @@ export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
 };
 
 // Store various mappings from unicode/emoticon/shortcode to the Emoji objects
-export const EMOJI: Emoji[] = EMOJIBASE.map((emojiData) => {
+export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
+  // filter emojis that are less than or equal to MAX_EMOJI_VERSION
+  const version = EMOJI_TO_VERSION.get(emojiData.hexcode);
+  return version && version <= MAX_EMOJI_VERSION;
+}).map((emojiData) => {
     // If there's ever a gap in shortcode coverage, we fudge it by
     // filling it in with the emoji's CLDR annotation
     const shortcodeData = SHORTCODES[emojiData.hexcode] ?? [emojiData.label.toLowerCase().replace(/\W+/g, "_")];
@@ -99,11 +111,12 @@ export const EMOJI: Emoji[] = EMOJIBASE.map((emojiData) => {
 
     if (emoji.emoticon) {
         // Add mapping from emoticon to Emoji object
-        Array.isArray(emoji.emoticon)
-            ? emoji.emoticon.forEach((x) => EMOTICON_TO_EMOJI.set(x, emoji))
-            : EMOTICON_TO_EMOJI.set(emoji.emoticon, emoji);
+        const emoticons = [emoji.emoticon]
+          //flatten, in case `emoji.emoticon` is an array
+          .flat()
+          .flatMap((x) => generateEmoticonPermutations(x));
+        emoticons.forEach((x) => EMOTICON_TO_EMOJI.set(x, emoji));
     }
-
     return emoji;
 });
 
