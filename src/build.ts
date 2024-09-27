@@ -14,14 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { DATA_BY_CATEGORY } from "./emoji";
-import * as fs from 'fs'
+import * as fs from "fs";
 
-const json = JSON.stringify(DATA_BY_CATEGORY)
-fs.writeFile("build/emojibase.json", json, function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("Success.")
-    }
+import { DATA_BY_CATEGORY } from "./emoji";
+
+const json = JSON.stringify(DATA_BY_CATEGORY);
+fs.writeFile("build/emojibase.json", json, function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Success.");
+  }
 });

@@ -1,0 +1,16 @@
+{
+    "plugins": [
+        "matrix-org",
+        "prettier"
+    ],
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
+    },
+    "extends": [
+        "plugin:matrix-org/typescript",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error"
+    }
+}
