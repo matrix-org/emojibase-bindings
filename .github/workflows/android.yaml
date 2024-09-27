@@ -15,7 +15,7 @@ env:
 jobs:
   build:
     name: Validate Kotlin
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         api-level: [29]
