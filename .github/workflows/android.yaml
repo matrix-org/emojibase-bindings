@@ -15,10 +15,10 @@ env:
 jobs:
   build:
     name: Validate Kotlin
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        api-level: [29]
+        api-level: [23]
     concurrency:
       # When running on main, use the sha to allow all runs of this workflow to run concurrently.
       # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
