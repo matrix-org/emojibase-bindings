@@ -1,0 +1,36 @@
+name: Web
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    name: Validate Web
+    runs-on: ubuntu-latest
+
+    concurrency:
+      # When running on main, use the sha to allow all runs of this workflow to run concurrently.
+      # Otherwise only allow a single run of this workflow on each branch, automatically cancelling older runs.
+      group: ${{ github.workflow }}
+      cancel-in-progress: ${{ github.ref_name != 'main' }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: "yarn"
+
+      - name: Setup
+        run: "./scripts/setup.sh"
+
+      - name: Build(typescript) check
+        run: yarn build
+
+      - name: Lint check
+        run: yarn lint
+
+      - name: Test check
+        run: yarn test
