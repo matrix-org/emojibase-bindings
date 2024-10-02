@@ -33,7 +33,7 @@ describe("Emojis", () => {
 
   it("that all emojis have shortcodes", async () => {
     expect(
-      EMOJI.every((emoji) => emoji.shortcodes.pop() !== undefined)
+      EMOJI.every((emoji) => emoji.shortcodes.pop() !== undefined),
     ).toBeTruthy();
   });
 
