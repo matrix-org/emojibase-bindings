@@ -24,7 +24,7 @@ export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   shortcodes: string[];
 }
 
-const MAX_EMOJI_VERSION = 15.0;
+const MAX_EMOJI_VERSION_WEB = 15.0;
 const EMOJI_TO_VERSION = new Map<string, number>();
 for (const [versionString, emojis] of Object.entries(VERSIONS)) {
   const version = parseFloat(versionString);
@@ -75,6 +75,9 @@ export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
   flags: [],
 };
 
+const MAX_EMOJI_VERSION: number =
+  parseFloat(<string>process.env.MAX_EMOJI_VERSION) || MAX_EMOJI_VERSION_WEB;
+console.log(`emojibase MAX_EMOJI_VERSION ${MAX_EMOJI_VERSION}`);
 // Store various mappings from unicode/emoticon/shortcode to the Emoji objects
 export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
   // filter emojis that are less than or equal to MAX_EMOJI_VERSION

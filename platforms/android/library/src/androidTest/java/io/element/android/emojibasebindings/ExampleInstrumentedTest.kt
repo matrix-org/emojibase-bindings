@@ -39,6 +39,12 @@ class ExampleInstrumentedTest {
 
     @Test
     fun testAllEmojisHaveShortcodes() {
-        assert(store.allEmojis.all { it.shortcodes.isNotEmpty() })
+        assert(store.allEmojis.all{ it.shortcodes.isNotEmpty() })
+    }
+
+    @Test
+    fun testDoesNotSupportEmoji151() {
+        // Check 🙂‍↔️ emoji is not present
+        assertNull(store.allEmojis.firstOrNull{ it.hexcode == "1F642-200D-2195-FE0F" })
     }
 }

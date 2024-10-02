@@ -41,7 +41,7 @@ describe("Emojis", () => {
     expect(getEmojiFromUnicode("🙂")?.hexcode).toBe("1F642");
   });
 
-  it("that emojis greated than are not included MAX_EMOJI_VERSION", async () => {
+  it("that emojis with version greater than MAX_EMOJI_VERSION_WEB are not included", async () => {
     expect(getEmojiFromUnicode("🙂‍↔️")?.hexcode).toBeUndefined();
   });
 });
