@@ -25,11 +25,6 @@ export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
 }
 
 const MAX_EMOJI_VERSION_WEB = 15.0;
-const EMOJI_TO_VERSION = new Map<string, number>();
-for (const [versionString, emojis] of Object.entries(VERSIONS)) {
-  const version = parseFloat(versionString);
-  emojis.forEach((emoji) => EMOJI_TO_VERSION.set(emoji, version));
-}
 
 // The unicode is stored without the variant selector
 const UNICODE_TO_EMOJI = new Map<string, Emoji>(); // not exported as gets for it are handled by getEmojiFromUnicode
@@ -75,9 +70,23 @@ export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
   flags: [],
 };
 
+// The MAX emoji version to be included in exported data.
+// This can be present as an env variable when it is being run for the mobile context.
+// We support setting a max emoji version so that we can upgrade emojibase for its library
+// features but not force a version on all platforms. Web for example needs to be upgraded
+// in unison with twemoji.
 const MAX_EMOJI_VERSION: number =
   parseFloat(<string>process.env.MAX_EMOJI_VERSION) || MAX_EMOJI_VERSION_WEB;
 console.log(`emojibase MAX_EMOJI_VERSION ${MAX_EMOJI_VERSION}`);
+// The compact version of emojibase does not have version stored on the emoji object
+// but there does existing a map of version to emoji.
+// Create a map of emoji to version so that we can lookup an emoji version and filter.
+const EMOJI_TO_VERSION = new Map<string, number>();
+for (const [versionString, emojis] of Object.entries(VERSIONS)) {
+  const version = parseFloat(versionString);
+  emojis.forEach((emoji) => EMOJI_TO_VERSION.set(emoji, version));
+}
+
 // Store various mappings from unicode/emoticon/shortcode to the Emoji objects
 export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
   // filter emojis that are less than or equal to MAX_EMOJI_VERSION
@@ -96,7 +105,10 @@ export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
     shortcodes:
       typeof shortcodeData === "string" ? [shortcodeData] : shortcodeData,
   };
+  return emoji;
+});
 
+EMOJI.forEach((emoji) => {
   // We manually include regional indicators in the symbols group, since
   // Emojibase intentionally leaves them uncategorized
   const categoryId =
@@ -123,7 +135,6 @@ export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
       .flatMap((x) => generateEmoticonPermutations(x));
     emoticons.forEach((x) => EMOTICON_TO_EMOJI.set(x, emoji));
   }
-  return emoji;
 });
 
 /**
