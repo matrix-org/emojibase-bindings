@@ -43,8 +43,8 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun testDoesNotSupportEmoji151() {
-        // Check 🙂‍↔️ emoji is not present
-        assertNull(store.allEmojis.firstOrNull{ it.hexcode == "1F642-200D-2195-FE0F" })
+    fun testSupportsEmoji151() {
+        // Check 🙂‍↔️ emoji is present
+        assertEquals(store.allEmojis.firstOrNull{ it.hexcode == "1F642-200D-2194-FE0F" }?.label, "head shaking horizontally")
     }
 }
