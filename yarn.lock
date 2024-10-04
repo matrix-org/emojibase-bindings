@@ -2209,7 +2209,7 @@ diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
-
+  
 doctrine@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
@@ -2246,15 +2246,15 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-emojibase-data@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-15.0.0.tgz#d1f5467f3080688b9605103d0abdcd54bbc76419"
-  integrity sha512-hqrLNhEeBejKOQp5ArJcofkzV3qZBcp8czXj8nIKUGpBVc50NddNGwir4yAYxn3oNgrSj/lYdB9XxIVAKTkong==
+emojibase-data@^15.3.1:
+  version "15.3.2"
+  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-15.3.2.tgz#2742246bfe14f16a7829b42ca156dec09934cf85"
+  integrity sha512-TpDyTDDTdqWIJixV5sTA6OQ0P0JfIIeK2tFRR3q56G9LK65ylAZ7z3KyBXokpvTTJ+mLUXQXbLNyVkjvnTLE+A==
 
-emojibase@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/emojibase/-/emojibase-15.0.0.tgz#f41b7773ec9a8a332373c18628ff4471255bd769"
-  integrity sha512-bvSIs98sHaVnyKPmW+obRjo49MFx0g+rhfSz6mTePAagEZSlDPosq0b6AcSJa5gt48z3VP2ooXclyBs8vIkpGA==
+emojibase@^15.3.1:
+  version "15.3.1"
+  resolved "https://registry.yarnpkg.com/emojibase/-/emojibase-15.3.1.tgz#7f6ff5482486f23e59a457de64e974bd35f3c9a3"
+  integrity sha512-GNsjHnG2J3Ktg684Fs/vZR/6XpOSkZPMAv85EHrr6br2RN2cJNwdS4am/3YSK3y+/gOv2kmoK3GGdahXdMxg2g==
 
 entities@^4.4.0:
   version "4.5.0"

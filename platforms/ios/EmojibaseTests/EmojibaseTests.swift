@@ -43,4 +43,10 @@ final class EmojibaseTests: XCTestCase {
         //All emojis have a shortcode
         XCTAssertTrue(store.allEmojis.allSatisfy({ $0.shortcodes.first != nil }))
     }
+    
+    func testSupportsEmoji151() async throws {
+        let store = try XCTUnwrap(store)
+        // Check 🙂‍↔️ emoji is present
+        XCTAssertEqual(store.allEmojis.first(where: {$0.hexcode == "1F642-200D-2194-FE0F"})?.label, "head shaking horizontally")
+    }
 }
