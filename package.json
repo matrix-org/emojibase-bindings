@@ -14,7 +14,7 @@
     "build"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -outDir build src/*.ts",
     "start": "ts-node ./src/build.ts",
     "prepare": "yarn build && yarn start",
     "lint": "eslint .",
