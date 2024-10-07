@@ -45,8 +45,10 @@ describe("Emojis", () => {
     expect(getEmojiFromUnicode("🙂‍↔️")?.hexcode).toBeUndefined();
   });
 
-  it("that emojis emojis with version===1 should work", async () => {
-    expect(EMOJI.find((emoji) => emoji.hexcode == "1F1E6")?.label).toBe('regional indicator A');
+  it("that emojis with version===1 should work", async () => {
+    expect(EMOJI.find((emoji) => emoji.hexcode == "1F1E6")?.label).toBe(
+      "regional indicator A",
+    );
   });
 });
 
