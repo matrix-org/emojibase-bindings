@@ -91,7 +91,7 @@ for (const [versionString, emojis] of Object.entries(VERSIONS)) {
 export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
   // filter emojis that are less than or equal to MAX_EMOJI_VERSION
   const version = EMOJI_TO_VERSION.get(emojiData.hexcode);
-  return version && version <= MAX_EMOJI_VERSION;
+  return version !== undefined && version <= MAX_EMOJI_VERSION;
 }).map((emojiData) => {
   // If there's ever a gap in shortcode coverage, we fudge it by
   // filling it in with the emoji's CLDR annotation
