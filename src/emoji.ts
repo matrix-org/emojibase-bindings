@@ -24,7 +24,7 @@ export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   shortcodes: string[];
 }
 
-const MAX_EMOJI_VERSION_WEB = 15.0;
+const MAX_EMOJI_VERSION_WEB = 15.1;
 
 // The unicode is stored without the variant selector
 const UNICODE_TO_EMOJI = new Map<string, Emoji>(); // not exported as gets for it are handled by getEmojiFromUnicode
@@ -77,7 +77,7 @@ export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
 // in unison with twemoji.
 const MAX_EMOJI_VERSION: number =
   parseFloat(<string>process.env.MAX_EMOJI_VERSION) || MAX_EMOJI_VERSION_WEB;
-console.log(`emojibase MAX_EMOJI_VERSION ${MAX_EMOJI_VERSION}`);
+
 // The compact version of emojibase does not have version stored on the emoji object
 // but there does existing a map of version to emoji.
 // Create a map of emoji to version so that we can lookup an emoji version and filter.
