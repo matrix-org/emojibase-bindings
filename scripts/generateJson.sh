@@ -3,7 +3,7 @@
 set -e
 
 MAX_EMOJI_VERSION_ANDROID=15.1
-MAX_EMOJI_VERSION_IOS=15.1
+MAX_EMOJI_VERSION_IOS=16.0
 
 EMOJIJSON_FILE="build/emojibase.json"
 KOTLIN_PATH="platforms/android/library/src/main/assets"

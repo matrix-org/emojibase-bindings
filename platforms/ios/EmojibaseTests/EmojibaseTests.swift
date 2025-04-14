@@ -44,9 +44,9 @@ final class EmojibaseTests: XCTestCase {
         XCTAssertTrue(store.allEmojis.allSatisfy({ $0.shortcodes.first != nil }))
     }
     
-    func testSupportsEmoji151() async throws {
+    func testSupportsEmoji16() async throws {
         let store = try XCTUnwrap(store)
-        // Check 🙂‍↔️ emoji is present
-        XCTAssertEqual(store.allEmojis.first(where: {$0.hexcode == "1F642-200D-2194-FE0F"})?.label, "head shaking horizontally")
+        // Check 🪾 emoji is present
+        XCTAssertEqual(store.allEmojis.first(where: {$0.hexcode == "1FABE"})?.label, "leafless tree")
     }
 }
