@@ -25,7 +25,24 @@ describe("Emojis", () => {
   it("specific emoji", async () => {
     const people = DATA_BY_CATEGORY.people;
     const emoji = people.find((emoji) => emoji.label == "OK hand");
-    expect(emoji?.tags).toStrictEqual(["hand", "ok"]);
+    expect(emoji?.tags).toStrictEqual([
+      "awesome",
+      "bet",
+      "dope",
+      "fleek",
+      "fosho",
+      "got",
+      "gotcha",
+      "hand",
+      "legit",
+      "ok",
+      "okay",
+      "pinch",
+      "rad",
+      "sure",
+      "sweet",
+      "three",
+    ]);
     expect(emoji?.shortcodes).toStrictEqual(["ok_hand"]);
     expect(emoji?.skins?.length).toBe(5);
     expect(emoji?.skins?.slice(-1)?.pop()?.unicode).toBe("👌🏿");
@@ -43,6 +60,10 @@ describe("Emojis", () => {
 
   it("that emojis with MAX_EMOJI_VERSION_WEB == 15.1 are included", async () => {
     expect(getEmojiFromUnicode("🙂‍↔️")?.hexcode).toBe("1F642-200D-2194-FE0F");
+  });
+
+  it("that emojis with MAX_EMOJI_VERSION_WEB == 16.0 are included", async () => {
+    expect(getEmojiFromUnicode("🫆")?.hexcode).toBe("1FAC6");
   });
 
   it("that emojis with version===1 should work", async () => {

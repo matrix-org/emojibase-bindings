@@ -31,10 +31,10 @@ class ExampleInstrumentedTest {
         val people = store.emojisFor(EmojibaseCategory.People)
         assertNotNull(people)
         val emoji = people?.first { it.label == "OK hand" }
-        assertEquals(emoji?.tags, listOf("hand", "ok"))
-        assertEquals(emoji?.shortcodes, listOf("ok_hand"))
-        assertEquals(emoji?.skins?.size, 5)
-        assertEquals(emoji?.skins?.last()?.unicode, "👌🏿")
+        assertEquals(listOf("awesome", "bet", "dope", "fleek", "fosho", "got", "gotcha", "hand", "legit", "ok", "okay", "pinch", "rad", "sure", "sweet", "three"), emoji?.tags)
+        assertEquals(listOf("ok_hand"), emoji?.shortcodes)
+        assertEquals(5, emoji?.skins?.size)
+        assertEquals("👌🏿", emoji?.skins?.last()?.unicode)
     }
 
     @Test
