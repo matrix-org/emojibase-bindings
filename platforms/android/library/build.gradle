@@ -2,7 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.devtools.ksp'
-    id "com.vanniktech.maven.publish" version "0.25.3"
+    id "com.vanniktech.maven.publish" version "0.32.0"
 }
 
 android {
