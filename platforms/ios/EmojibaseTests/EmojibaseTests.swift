@@ -20,8 +20,8 @@ final class EmojibaseTests: XCTestCase {
     
     var store: EmojibaseStore?
     
-    override func setUp() async throws {
-        self.store = try? await EmojibaseDatasource().load()
+    override func setUp() throws {
+        self.store = try? EmojibaseDatasource().load()
     }
     
     func testSpecificEmoji() async throws {
