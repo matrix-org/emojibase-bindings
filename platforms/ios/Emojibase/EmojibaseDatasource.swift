@@ -22,7 +22,7 @@ public struct EmojibaseDatasource {
     
     public init() {}
     
-    public func load() async throws -> EmojibaseStore {
+    public func load() throws -> EmojibaseStore {
         guard let jsonDataURL = Self.jsonFile else {
             throw DatasourceError.fileNotFound
         }
