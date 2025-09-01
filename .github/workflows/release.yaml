@@ -77,7 +77,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           build-root-directory: platforms/android
-          arguments: closeAndReleaseRepository
+          arguments: publishAndReleaseToMavenCentral
 
       - name: 🚀 Publish to npm
         id: npm-publish
