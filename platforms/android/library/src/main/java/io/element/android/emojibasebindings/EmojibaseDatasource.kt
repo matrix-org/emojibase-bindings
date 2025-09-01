@@ -7,15 +7,16 @@ import com.squareup.moshi.Types
 import dev.zacsweers.moshix.adapters.immutable.ImmutableCollectionsJsonAdapterFactory
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
+import okio.buffer
+import okio.source
 import java.io.IOException
-import java.io.InputStream
 
 class EmojibaseDatasource {
 
     @Throws(IOException::class)
     fun load(context: Context): EmojibaseStore {
-        val inputStream: InputStream = context.assets.open("emojibase.json")
-        val json = inputStream.bufferedReader().use { it.readText() }
+        val inputStream = context.assets.open("emojibase.json")
+        val jsonBuffer = inputStream.source().buffer()
         val moshi = Moshi.Builder().add(ImmutableCollectionsJsonAdapterFactory()).build()
         val type = Types.newParameterizedType(
             ImmutableMap::class.java,
@@ -26,7 +27,7 @@ class EmojibaseDatasource {
             )
         )
         val adapter = moshi.adapter<ImmutableMap<EmojibaseCategory, ImmutableList<Emoji>>>(type)
-        return adapter.fromJson(json)?.let { EmojibaseStore(categories = it) }
+        return adapter.fromJson(jsonBuffer)?.let { EmojibaseStore(categories = it) }
             ?: throw JsonDataException("Failed to parse emojibase.json")
     }
 }
