@@ -2,27 +2,30 @@ package io.element.android.emojibasebindings
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.ImmutableMap
+import kotlinx.collections.immutable.toImmutableList
 
 data class EmojibaseStore(
-    var categories: Map<EmojibaseCategory, List<Emoji>>
-)
-
-fun EmojibaseStore.emojisFor(category: EmojibaseCategory): List<Emoji>? {
-    return categories[category]
+    val categories: ImmutableMap<EmojibaseCategory, ImmutableList<Emoji>>
+) {
+    val allEmojis: ImmutableList<Emoji> by lazy {
+        categories.values.flatten().toImmutableList()
+    }
 }
 
-val EmojibaseStore.allEmojis: List<Emoji> get() {
-    return categories.values.flatten()
+fun EmojibaseStore.emojisFor(category: EmojibaseCategory): ImmutableList<Emoji>? {
+    return categories[category]
 }
 
 @JsonClass(generateAdapter = true)
 data class Emoji(
     val hexcode: String,
     val label: String,
-    val tags: List<String>?,
-    val shortcodes: List<String>,
+    val tags: ImmutableList<String>?,
+    val shortcodes: ImmutableList<String>,
     val unicode: String,
-    val skins: List<EmojiSkin>?
+    val skins: ImmutableList<EmojiSkin>?
 )
 
 @JsonClass(generateAdapter = true)
