@@ -66,9 +66,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '17'
+          java-version: '21'
 
-      - name: ⬆️ Publish to Sonatype
+      - name: ⬆️ Publish to Maven Central
         uses: gradle/gradle-build-action@v2
         with:
           build-root-directory: platforms/android
