@@ -2,16 +2,16 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.devtools.ksp'
-    id "com.vanniktech.maven.publish" version "0.32.0"
+    id "com.vanniktech.maven.publish" version "0.34.0"
 }
 
 android {
     namespace 'io.element.android.emojibasebindings'
-    compileSdk 33
+    compileSdkVersion 36
 
     defaultConfig {
         minSdk 23
-        targetSdk 33
+        targetSdk 36
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -24,29 +24,31 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = '17'
+    kotlin {
+        jvmToolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
     }
 }
 
 dependencies {
 
-    def moshi = "1.14.0"
+    def moshi = "1.15.2"
 
     implementation "com.squareup.moshi:moshi:$moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi"
     implementation "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
     implementation "com.squareup.moshi:moshi-adapters:$moshi"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:$moshi"
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0'
     implementation 'dev.zacsweers.moshix:moshi-immutable-adapters:0.31.0'
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.12.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 }
