@@ -24,7 +24,7 @@ export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   shortcodes: string[];
 }
 
-const MAX_EMOJI_VERSION_WEB = 16.0;
+const MAX_EMOJI_VERSION_WEB = 17.0;
 
 // The unicode is stored without the variant selector
 const UNICODE_TO_EMOJI = new Map<string, Emoji>(); // not exported as gets for it are handled by getEmojiFromUnicode
