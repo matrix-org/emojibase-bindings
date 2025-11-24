@@ -28,12 +28,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🧮 Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           fetch-depth: 0
           token: ${{ secrets.ELEMENT_BOT_TOKEN }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
         with:
           cache: "yarn"
 
@@ -63,18 +63,18 @@ jobs:
           git push
 
       - name: 🛠️ Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
         with:
           distribution: 'adopt'
           java-version: '21'
 
       - name: ⬆️ Publish to Maven Central
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
         with:
           build-root-directory: platforms/android
           arguments: publishAllPublicationsToMavenCentral
       - name: 🚀 Close staging repo and release version
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
         with:
           build-root-directory: platforms/android
           arguments: publishAndReleaseToMavenCentral
@@ -88,7 +88,7 @@ jobs:
           ignore-scripts: false
 
       - name: 🧬 Create release
-        uses: actions/create-release@v1
+        uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
