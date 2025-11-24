@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Validate Swift
-    runs-on: macos-14
+    runs-on: macos-15
 
     concurrency:
       # When running on main, use the sha to allow all runs of this workflow to run concurrently.
