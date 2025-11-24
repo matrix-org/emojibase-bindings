@@ -2246,15 +2246,15 @@ emoji-regex@^8.0.0:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
-emojibase-data@^16.0.3:
-  version "16.0.3"
-  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-16.0.3.tgz#564ddfe11a2fdcba24975335f857dc85ee895027"
-  integrity sha512-MopInVCDZeXvqBMPJxnvYUyKw9ImJZqIDr2sABo6acVSPev5IDYX+mf+0tsu96JJyc3INNvgIf06Eso7bdTX2Q==
+emojibase-data@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/emojibase-data/-/emojibase-data-17.0.0.tgz#5816fba6395da6b567fbd54b029ca6b5de2d9255"
+  integrity sha512-Yvgb5AWoHViHV/gq1qr5ZAarcBip+B27/ZLRsUJkbgAEaLlZ/fof9g882LTpmEpyhBNEC0m2SEmItljHsTygjA==
 
-emojibase@^16.0.0:
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/emojibase/-/emojibase-16.0.0.tgz#9da603b7d740645d0a5d21c6dcfb97c53d6f96c7"
-  integrity sha512-Nw2m7JLIO4Ou2X/yZPRNscHQXVbbr6SErjkJ7EooG7MbR3yDZszCv9KTizsXFc7yZl0n3WF+qUKIC/Lw6H9xaQ==
+emojibase@^17.0.0:
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/emojibase/-/emojibase-17.0.0.tgz#711350fe0f2862945fecd06147370623874ba15e"
+  integrity sha512-bXdpf4HPY3p41zK5swVKZdC/VynsMZ4LoLxdYDE+GucqkFwzcM1GVc4ODfYAlwoKaf2U2oNNUoOO78N96ovpBA==
 
 entities@^4.4.0:
   version "4.5.0"

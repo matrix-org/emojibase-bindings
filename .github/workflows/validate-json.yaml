@@ -26,7 +26,7 @@ jobs:
     - name: Setup
       run: "./scripts/setup.sh"
     
-    - name: Gerenate json
+    - name: Generate json
       run: "./scripts/generateJson.sh"
 
     - name: Validate it matches source

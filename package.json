@@ -43,7 +43,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "emojibase": "^16.0.0",
-    "emojibase-data": "^16.0.3"
+    "emojibase": "^17.0.0",
+    "emojibase-data": "^17.0.0"
   }
 }
