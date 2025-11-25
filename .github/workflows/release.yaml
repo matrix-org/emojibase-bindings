@@ -63,7 +63,7 @@ jobs:
           git push
 
       - name: 🛠️ Setup Java
-        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5
         with:
           distribution: 'adopt'
           java-version: '21'
