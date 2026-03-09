@@ -14,6 +14,8 @@ on:
           - major
 concurrency: release
 
+permissions: {}
+
 env:
   GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx4096m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError" -Dkotlin.daemon.jvm.options="-Xmx2560m" -Dkotlin.incremental=false
   CI_GRADLE_ARG_PROPERTIES: --stacktrace -PpreDexEnable=false --max-workers 4 --no-daemon
@@ -32,10 +34,12 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.ELEMENT_BOT_TOKEN }}
+          persist-credentials: false
 
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
         with:
-          cache: "yarn"
+          cache: ""
+          package-manager-cache: false
 
       - name: 🗜️ Setup
         run: "./scripts/setup.sh"
@@ -45,7 +49,9 @@ jobs:
 
       - name: 👊 Bump yarn version
         run: |
-          yarn version --no-git-tag-version --${{ github.event.inputs.version-bump }}
+          yarn version --no-git-tag-version --${GITHUB_EVENT_INPUTS_VERSION_BUMP}
+        env:
+          GITHUB_EVENT_INPUTS_VERSION_BUMP: ${{ github.event.inputs.version-bump }}
 
       - name: 👊 Set the version in env
         run: |
@@ -53,14 +59,16 @@ jobs:
 
       - name: 👊 Sync the version with android
         run: |
-          ./scripts/update_android_version.sh ${{ env.NEW_VERSION }}
+          ./scripts/update_android_version.sh ${NEW_VERSION}
 
       - name: 👊 Commit the version
         run: |
           git config --global user.name 'ElementRobot'
           git config --global user.email 'releases@riot.im'
-          git commit -am "${{ github.event.inputs.version-bump }} version bump"
+          git commit -am "${GITHUB_EVENT_INPUTS_VERSION_BUMP} version bump"
           git push
+        env:
+          GITHUB_EVENT_INPUTS_VERSION_BUMP: ${{ github.event.inputs.version-bump }}
 
       - name: 🛠️ Setup Java
         uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3
@@ -69,15 +77,17 @@ jobs:
           java-version: '21'
 
       - name: ⬆️ Publish to Maven Central
-        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
         with:
           build-root-directory: platforms/android
           arguments: publishAllPublicationsToMavenCentral
+          cache-disabled: true
       - name: 🚀 Close staging repo and release version
-        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
         with:
           build-root-directory: platforms/android
           arguments: publishAndReleaseToMavenCentral
+          cache-disabled: true
 
       - name: 🚀 Publish to npm
         id: npm-publish
@@ -88,12 +98,12 @@ jobs:
           ignore-scripts: false
 
       - name: 🧬 Create release
-        uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # v1
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.NEW_VERSION }}
-          release_name: Release ${{ env.NEW_VERSION }}
+          name: Release ${{ env.NEW_VERSION }}
           body: ${{ env.NEW_VERSION }} Release
           draft: false
           prerelease: false

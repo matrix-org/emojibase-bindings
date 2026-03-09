@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   pull_request:
 
+permissions: {}
+
 jobs:
   build:
     name: Validate emojibase.json
@@ -18,6 +20,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+      with:
+        persist-credentials: false
 
     - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
       with:
