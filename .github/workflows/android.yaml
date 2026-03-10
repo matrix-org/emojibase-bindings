@@ -46,13 +46,13 @@ jobs:
       - name: Gerenate json
         run: "./scripts/generateJson.sh"
 
-      - name: Setup Gradle & Build test cases
+      - name: Setup gradle
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
         with:
-          build-root-directory: platforms/android
-          arguments: |
-            :library:assembleDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
           cache-read-only: false
+      - name: Assemble Android test
+        working-directory: platforms/android
+        run: ./gradlew :library:assembleDebugAndroidTest ${{ env.CI_GRADLE_ARG_PROPERTIES }}
               
       - uses: reactivecircus/android-emulator-runner@b530d96654c385303d652368551fb075bc2f0b6b # v2
         with:

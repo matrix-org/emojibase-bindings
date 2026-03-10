@@ -77,18 +77,20 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
-      - name: ⬆️ Publish to Maven Central
+      - name: Setup gradle
         uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
         with:
-          build-root-directory: platforms/android
-          arguments: publishAllPublicationsToMavenCentral
+          cache-disabled: true
+      - name: ⬆️ Publish to Maven Central
+        working-directory: platforms/android
+        run: ./gradlew publishAllPublicationsToMavenCentral
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
+        with:
           cache-disabled: true
       - name: 🚀 Close staging repo and release version
-        uses: gradle/actions/setup-gradle@0723195856401067f7a2779048b490ace7a47d7c # v5.0.2
-        with:
-          build-root-directory: platforms/android
-          arguments: publishAndReleaseToMavenCentral
-          cache-disabled: true
+        working-directory: platforms/android
+        run: ./gradlew publishAllPublicationsToMavenCentral
 
       - name: 🚀 Publish to npm
         id: npm-publish
