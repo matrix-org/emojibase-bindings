@@ -34,7 +34,8 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.ELEMENT_BOT_TOKEN }}
-          persist-credentials: false
+          # Need the credentials for pushing the version commit
+          persist-credentials: true
 
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6
         with:
