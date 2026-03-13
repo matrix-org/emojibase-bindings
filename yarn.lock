@@ -2498,10 +2498,10 @@ eslint-plugin-import@^2.30.0:
     string.prototype.trimend "^1.0.9"
     tsconfig-paths "^3.15.0"
 
-eslint-plugin-matrix-org@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-matrix-org/-/eslint-plugin-matrix-org-1.2.1.tgz#76d1505daa93fb99ba4156008b9b32f57682c9b1"
-  integrity sha512-A3cDjhG7RHwfCS8o3bOip8hSCsxtmgk2ahvqE5v/Ic2kPEZxixY6w8zLj7hFGsrRmPSEpLWqkVLt8uvQBapiQA==
+eslint-plugin-matrix-org@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-matrix-org/-/eslint-plugin-matrix-org-3.0.0.tgz#0e5eaa556b6780dcd616b1381baec252df78b56d"
+  integrity sha512-xOPMeyLxOgoB2SsPhJmIc+drorZmXozSBo3X9whk/62DvbVpJcnththOCGx8ljYScADLb+baNOeN+wKZqwkldw==
 
 eslint-plugin-prettier@^5.2.1:
   version "5.5.4"
