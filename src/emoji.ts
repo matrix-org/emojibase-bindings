@@ -17,7 +17,7 @@ limitations under the License.
 import EMOJIBASE from "emojibase-data/en/compact.json";
 import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
 import VERSIONS from "emojibase-data/versions/emoji.json";
-import { CompactEmoji, generateEmoticonPermutations } from "emojibase";
+import { type CompactEmoji, generateEmoticonPermutations } from "emojibase";
 
 export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   // We generate a shortcode based on the label if none exist in the dataset
