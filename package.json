@@ -24,6 +24,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/jest": "^29.5.13",
     "@types/node": "^20.4.7",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
