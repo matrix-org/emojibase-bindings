@@ -5,6 +5,7 @@ DerivedData/
 .swiftpm
 .build/
 node_modules
+.idea/
 platforms/android/.idea/
 platforms/android/.gradle
 platforms/android/local.properties
