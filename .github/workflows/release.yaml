@@ -94,6 +94,7 @@ jobs:
         run: ./gradlew publishAndReleaseToMavenCentral
 
       - name: 🚀 Publish to npm
+        continue-on-error: true
         id: npm-publish
         uses: JS-DevTools/npm-publish@5a85faf05d2ade2d5b6682bfe5359915d5159c6c # v2.2.1
         with:
