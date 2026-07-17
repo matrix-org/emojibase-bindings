@@ -17,7 +17,8 @@ limitations under the License.
 import EMOJIBASE from "emojibase-data/en/compact.json";
 import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
 import VERSIONS from "emojibase-data/versions/emoji.json";
-import { type CompactEmoji, generateEmoticonPermutations } from "emojibase";
+import { CompactEmoji, generateEmoticonPermutations } from "emojibase";
+import { GroupKey } from "emojibase/src/types";
 
 export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   // We generate a shortcode based on the label if none exist in the dataset
@@ -57,9 +58,11 @@ const EMOJIBASE_GROUP_ID_TO_CATEGORY = [
   "objects",
   "symbols",
   "flags",
-];
+] as const;
 
-export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
+type Category = Exclude<typeof EMOJIBASE_GROUP_ID_TO_CATEGORY[number], "control">;
+
+export const DATA_BY_CATEGORY: Record<Category, Emoji[]> = {
   people: [],
   nature: [],
   foods: [],
@@ -116,7 +119,7 @@ EMOJI.forEach((emoji) => {
     (isRegionalIndicator(emoji.unicode) ? "symbols" : null);
 
   if (DATA_BY_CATEGORY.hasOwnProperty(categoryId)) {
-    DATA_BY_CATEGORY[categoryId].push(emoji);
+    DATA_BY_CATEGORY[categoryId as Category].push(emoji);
   }
 
   // Add mapping from unicode to Emoji object
