@@ -17,8 +17,7 @@ limitations under the License.
 import EMOJIBASE from "emojibase-data/en/compact.json";
 import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
 import VERSIONS from "emojibase-data/versions/emoji.json";
-import { CompactEmoji, generateEmoticonPermutations } from "emojibase";
-import { GroupKey } from "emojibase/src/types";
+import { type CompactEmoji, generateEmoticonPermutations } from "emojibase";
 
 export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
   // We generate a shortcode based on the label if none exist in the dataset
@@ -60,7 +59,10 @@ const EMOJIBASE_GROUP_ID_TO_CATEGORY = [
   "flags",
 ] as const;
 
-type Category = Exclude<typeof EMOJIBASE_GROUP_ID_TO_CATEGORY[number], "control">;
+type Category = Exclude<
+  (typeof EMOJIBASE_GROUP_ID_TO_CATEGORY)[number],
+  "control"
+>;
 
 export const DATA_BY_CATEGORY: Record<Category, Emoji[]> = {
   people: [],
