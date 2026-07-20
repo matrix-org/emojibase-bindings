@@ -57,9 +57,14 @@ const EMOJIBASE_GROUP_ID_TO_CATEGORY = [
   "objects",
   "symbols",
   "flags",
-];
+] as const;
 
-export const DATA_BY_CATEGORY: Record<string, Emoji[]> = {
+type Category = Exclude<
+  (typeof EMOJIBASE_GROUP_ID_TO_CATEGORY)[number],
+  "control"
+>;
+
+export const DATA_BY_CATEGORY: Record<Category, Emoji[]> = {
   people: [],
   nature: [],
   foods: [],
@@ -116,7 +121,7 @@ EMOJI.forEach((emoji) => {
     (isRegionalIndicator(emoji.unicode) ? "symbols" : null);
 
   if (DATA_BY_CATEGORY.hasOwnProperty(categoryId)) {
-    DATA_BY_CATEGORY[categoryId].push(emoji);
+    DATA_BY_CATEGORY[categoryId as Category].push(emoji);
   }
 
   // Add mapping from unicode to Emoji object
