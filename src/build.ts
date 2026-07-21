@@ -16,7 +16,7 @@ limitations under the License.
 
 import * as fs from "fs";
 
-import { DATA_BY_CATEGORY } from "./emoji";
+import { DATA_BY_CATEGORY } from "./emoji.ts";
 
 const json = JSON.stringify(DATA_BY_CATEGORY);
 fs.writeFile("build/emojibase.json", json, function (err) {
