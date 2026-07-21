@@ -28,6 +28,8 @@ jobs:
   release:
     name: Release Bindings for Kotlin, Swift & Typescript
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: 🧮 Checkout code
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
@@ -95,12 +97,7 @@ jobs:
 
       - name: 🚀 Publish to npm
         continue-on-error: true
-        id: npm-publish
-        uses: JS-DevTools/npm-publish@fe72237be0920f7a0cafd6a966c9b929c9466e9b # v2.2.2
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          ignore-scripts: false
+        run: pnpm publish --access public --provenance
 
       - name: 🧬 Create release
         run: |
