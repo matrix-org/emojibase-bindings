@@ -28,6 +28,8 @@ jobs:
   release:
     name: Release Bindings for Kotlin, Swift & Typescript
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: 🧮 Checkout code
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
@@ -95,20 +97,11 @@ jobs:
 
       - name: 🚀 Publish to npm
         continue-on-error: true
-        id: npm-publish
-        uses: JS-DevTools/npm-publish@5a85faf05d2ade2d5b6682bfe5359915d5159c6c # v2.2.1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          ignore-scripts: false
+        run: pnpm publish --access public --provenance
 
       - name: 🧬 Create release
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        run: gh release create "$TAG" --title "$TITLE" --generate-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ env.NEW_VERSION }}
-          name: Release ${{ env.NEW_VERSION }}
-          body: ${{ env.NEW_VERSION }} Release
-          draft: false
-          prerelease: false
+          TAG: v${{ env.NEW_VERSION }}
+          TITLE: Release ${{ env.NEW_VERSION }}
+          GH_TOKEN: ${{ github.token }}
