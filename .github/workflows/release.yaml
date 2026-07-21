@@ -100,7 +100,8 @@ jobs:
         run: pnpm publish --access public --provenance
 
       - name: 🧬 Create release
-        run: |
-          gh release create "v${{ env.NEW_VERSION }}" --title "Release ${{ env.NEW_VERSION }}" --generate-notes
+        run: gh release create "$TAG" --title "$TITLE" --generate-notes
         env:
+          TAG: v${{ env.NEW_VERSION }}
+          TITLE: Release ${{ env.NEW_VERSION }}
           GH_TOKEN: ${{ github.token }}
