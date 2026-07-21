@@ -19,7 +19,7 @@ import {
   EMOJI,
   EMOTICON_TO_EMOJI,
   getEmojiFromUnicode,
-} from "../src/emoji";
+} from "../src/emoji.ts";
 
 describe("Emojis", () => {
   it("specific emoji", async () => {

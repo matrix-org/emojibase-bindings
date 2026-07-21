@@ -6,6 +6,7 @@
   "repository": "https://github.com/matrix-org/emojibase-bindings.git",
   "author": "matrix.org",
   "license": "Apache-2.0",
+  "type": "module",
   "files": [
     "LICENSE",
     "README.md",
@@ -15,9 +16,9 @@
   ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
-    "start": "ts-node ./src/build.ts",
+    "start": "node ./src/build.ts",
     "prepare": "yarn build && yarn start",
-    "lint": "eslint .",
+    "lint": "eslint . && tsc",
     "test": "jest"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@types/node": "^20.4.7",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
+    "@typescript/native": "npm:typescript@^7.0.0",
     "babel-jest": "^30.0.0",
     "eslint": "8.57.1",
     "eslint-config-google": "^0.14.0",
@@ -40,8 +42,7 @@
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "prettier": "^3.3.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^7.0.0"
+    "typescript": "npm:@typescript/typescript6@^6.0.0"
   },
   "dependencies": {
     "emojibase": "^17.0.0",

@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import EMOJIBASE from "emojibase-data/en/compact.json";
-import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json";
-import VERSIONS from "emojibase-data/versions/emoji.json";
+import EMOJIBASE from "emojibase-data/en/compact.json" with { type: "json" };
+import SHORTCODES from "emojibase-data/en/shortcodes/iamcal.json" with { type: "json" };
+import VERSIONS from "emojibase-data/versions/emoji.json" with { type: "json" };
 import { type CompactEmoji, generateEmoticonPermutations } from "emojibase";
 
 export interface Emoji extends Omit<CompactEmoji, "shortcodes"> {
@@ -81,7 +81,7 @@ export const DATA_BY_CATEGORY: Record<Category, Emoji[]> = {
 // features but not force a version on all platforms. Web for example needs to be upgraded
 // in unison with twemoji.
 const MAX_EMOJI_VERSION: number =
-  parseFloat(<string>process.env.MAX_EMOJI_VERSION) || MAX_EMOJI_VERSION_WEB;
+  parseFloat(process.env.MAX_EMOJI_VERSION!) || MAX_EMOJI_VERSION_WEB;
 
 // The compact version of emojibase does not have version stored on the emoji object
 // but there does existing a map of version to emoji.
@@ -100,9 +100,9 @@ export const EMOJI: Emoji[] = EMOJIBASE.filter((emojiData) => {
 }).map((emojiData) => {
   // If there's ever a gap in shortcode coverage, we fudge it by
   // filling it in with the emoji's CLDR annotation
-  const shortcodeData = SHORTCODES[emojiData.hexcode] ?? [
-    emojiData.label.toLowerCase().replace(/\W+/g, "_"),
-  ];
+  const shortcodeData = SHORTCODES[
+    emojiData.hexcode as keyof typeof SHORTCODES
+  ] ?? [emojiData.label.toLowerCase().replace(/\W+/g, "_")];
 
   const emoji: Emoji = {
     ...emojiData,
