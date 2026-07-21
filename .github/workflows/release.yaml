@@ -103,12 +103,7 @@ jobs:
           ignore-scripts: false
 
       - name: 🧬 Create release
-        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+        run: |
+          gh release create "v${{ env.NEW_VERSION }}" --title "Release ${{ env.NEW_VERSION }}" --generate-notes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ env.NEW_VERSION }}
-          name: Release ${{ env.NEW_VERSION }}
-          body: ${{ env.NEW_VERSION }} Release
-          draft: false
-          prerelease: false
+          GH_TOKEN: ${{ github.token }}
